@@ -2,7 +2,7 @@
 const projectData = {};
 
 // Require Express to run server and routes
-const express = require("express");
+const express = require('express');
 
 // Start up an instance of app
 const app = express();
@@ -21,26 +21,23 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static('website'));
 
-
 // Setup Server
-// app.get('/', function (req, res) {
-//   res.send('hello world');
-// })
-
 const port = 8000;
 const server = app.listen(port, listening);
-function listening(){
-     console.log("server running"); 
-     console.log(`running on localhost: {$port}`);
+function listening() {
+  console.log('server running');
+  console.log(`running on localhost: ${port}`);
 }
 
-
-// GET Request with 'gdata' route to return projectData object 
+// GET Request with 'gdata' route to return projectData object
 app.get('/gdata', function (req, res) {
   res.send(projectData);
-})
-// POST Request with 'pdata' route to add data to projectData object 
-app.post('/pdata', function (req, res){
-   console.log(req.body)
-   projectData.push(req.body)
-} )
+});
+// POST Request with 'pdata' route to add data to projectData object
+app.post('/pdata', function (req, res) {
+  // console.log(req.body);
+  let newData = req.body;
+  projectData.temperature = newData.temperature;
+  projectData.date = newData.date;
+  projectData.userResponse = newData.userResponse;
+});
